@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:14:55 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/13 12:51:21 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:08:02 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ char	*first_word(char *str)
 {
 	int		i;
 	int		start;
-	char	*copy;
-
+	// char	*copy;
+	char *tmp;	
+	int j;
+	
+	j = 0;
 	i = 0;
 	if (!str)
 		return (NULL);
@@ -30,8 +33,21 @@ char	*first_word(char *str)
 			break ;
 		i++;
 	}
-	copy = ft_substr(str, start, (i - start));
-	return (copy);
+
+	tmp = malloc(sizeof(char) * (i - start) + 1);
+	i = start;
+
+	while (str[i])
+	{
+		if (str[i] == ' ' || str[i] == '\t')
+			break ;
+		tmp[j] = str[i];
+		i++;
+		j++;
+	}
+	tmp[j] = '\0';
+	// copy = ft_substr(str, start, (i - start));
+	return (tmp);
 }
 
 void	init_cmd(t_struc *list, char **av)

@@ -6,13 +6,13 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 14:49:24 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/07 16:50:59 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:50:34 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	check_env(char **str, t_struc *list, char **av)
+void	check_env(char **str, t_struc *list)
 {
 	char	*path;
 	int		i;
@@ -35,8 +35,7 @@ void	check_env(char **str, t_struc *list, char **av)
 	{
 		close(list->fd_outfile);
 		close(list->fd_infile);
-		ft_printf("%s: No such file or directory\n", av[2]);
-		ft_printf("%s: No such file or directory\n", av[3]);
+		ft_printf("environment variable not found\n");
 		exit(EXIT_FAILURE);
 	}
 }

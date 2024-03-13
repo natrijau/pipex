@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:02:05 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/13 12:50:24 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:24:26 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	check_access_cmd1(t_struc *list)
 		cmd = ft_strjoin(copy, list->cmd1);
 		if (access(cmd, X_OK) == 0)
 		{
-			list->cmd1_with_path = ft_strdup(cmd);
-			free(cmd);
+			list->cmd1_with_path = cmd;
 			return (0);
 		}
 		free(cmd);
@@ -48,8 +47,7 @@ int	check_access_cmd2(t_struc *list)
 		cmd = ft_strjoin(copy, list->cmd2);
 		if (access(cmd, X_OK) == 0)
 		{
-			list->cmd2_with_path = ft_strdup(cmd);
-			free(cmd);
+			list->cmd2_with_path = cmd;
 			return (0);
 		}
 		free(cmd);
@@ -82,8 +80,8 @@ void	cmd2(t_struc *list, char **av)
 		free_all(list);
 		exit(1);
 	}
-	if (av[2][0] == '/')
-		list->cmd2_with_path = ft_strdup(first_word(av[2]));
+	if (list->cmd2[0] == '/')
+		list->cmd2_with_path = first_word(av[2]);
 	if (!list->cmd2 || check_access_cmd2(list) == 0)
 		return ;
 	else
@@ -95,8 +93,8 @@ void	cmd2(t_struc *list, char **av)
 
 void	cmd1(t_struc *list, char **av)
 {
-	if (av[3][0] == '/')
-		list->cmd1_with_path = ft_strdup(av[3]);
+	if (list->cmd1[0] == '/')
+		list->cmd1_with_path = first_word(av[3]);
 	if (!list->cmd1 || check_access_cmd1(list) == 0)
 		return ;
 }

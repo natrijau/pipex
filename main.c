@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:38:55 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/12 16:11:03 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:16:52 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int ac, char **av, char **envp)
 	check_ac(ac);
 	get_infile(&list, av[1]);
 	get_outfile(&list, av[4]);
-	check_env(envp, &list, av);
+	check_env(envp, &list);
 	get_all_path(list.path, &list);
 	init_cmd(&list, av);
 	get_options_cmd(&list, av[2], av[3]);

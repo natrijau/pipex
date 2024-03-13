@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:52:36 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/12 16:48:10 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:11:13 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_struct
 char	*first_word(char *str);
 void	check_ac(int ac);
 void	free_all(t_struc *list);
-void	check_env(char **str, t_struc *list, char **av);
+void	check_env(char **str, t_struc *list);
 void	get_all_path(char *str, t_struc *list);
 char	**free_split(char **s);
 void	init_cmd(t_struc *list, char **av);
