@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:20:06 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/11 13:38:56 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:04:03 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	close_all(t_struc *list, int *pipefd)
 
 void	free_all(t_struc *list)
 {
+	if (!list)
+		return ;
 	if (list->cmd1)
 		free(list->cmd1);
 	if (list->cmd2)

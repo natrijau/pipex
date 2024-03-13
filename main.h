@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:52:36 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/11 13:46:51 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:48:10 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <errno.h>
 # include <stdio.h>
+# include <stdbool.h>
 # include "./libft/libft.h"
 # include "./printf/ft_printf.h"
 

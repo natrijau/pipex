@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:38:55 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/11 18:06:34 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:11:03 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	child_process2(t_struc *list, int *pipefd, char **envp)
 		close(pipefd[0]);
 		close(list->fd_outfile);
 		close(list->fd_infile);
-		execve(list->cmd2_with_path, list->cmd2_options, envp);
+		if (list->cmd2_with_path)
+			execve(list->cmd2_with_path, list->cmd2_options, envp);
 		free_all(list);
 		exit(EXIT_FAILURE);
 	}
@@ -65,16 +66,10 @@ void	init_cmd1(char **av, t_struc *list)
 	int	i;
 
 	i = 0;
-	if (av[2][0] != '/')
+	if (list->cmd1[0] != '/')
 		cmd1(list, av);
 	else
-	{
-		while (av[2][i] && av[2][i] != ' ')
-			i++;
-		list->cmd1_with_path = ft_substr(av[2], 0, i);
-		if (access(list->cmd1_with_path, X_OK | F_OK) != 0)
-			ft_printf("%s: No such file or directory\n", list->cmd1_with_path);
-	}
+		list->cmd1_with_path = ft_strdup(list->cmd1);
 }
 
 void	init_cmd2(char **av, t_struc *list)
@@ -82,16 +77,10 @@ void	init_cmd2(char **av, t_struc *list)
 	int	j;
 
 	j = 0;
-	if (av[3][0] != '/')
+	if (list->cmd2[0] != '/')
 		cmd2(list, av);
 	else
-	{
-		while (av[3][j] && av[3][j] != ' ')
-			j++;
-		list->cmd2_with_path = ft_substr(av[3], 0, j);
-		if (access(list->cmd2_with_path, X_OK | F_OK) != 0)
-			ft_printf("%s: No such file or directory\n", list->cmd2_with_path);
-	}
+		list->cmd2_with_path = ft_strdup(list->cmd2);
 }
 
 int	main(int ac, char **av, char **envp)

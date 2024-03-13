@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:14:55 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/11 13:46:32 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:51:21 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,22 @@
 char	*first_word(char *str)
 {
 	int		i;
-	int		j;
+	int		start;
 	char	*copy;
 
 	i = 0;
-	j = 0;
-	while (str[i] == ' ')
-	{
+	if (!str)
+		return (NULL);
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
-		j++;
-	}
+	start = i;
 	while (str[i])
 	{
-		if (str[i] == ' ')
+		if (str[i] == ' ' || str[i] == '\t')
 			break ;
 		i++;
 	}
-	copy = ft_substr(str, j, i);
+	copy = ft_substr(str, start, (i - start));
 	return (copy);
 }
 

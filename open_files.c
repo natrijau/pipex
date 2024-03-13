@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 15:58:48 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/11 11:58:13 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:07:16 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	get_outfile(t_struc *list, char *str)
 	if (fd < 0)
 	{
 		ft_printf("%s: Permission denied\n", str);
+		close(list->fd_infile);
 		exit(EXIT_FAILURE);
 	}
 	list->fd_outfile = fd;
