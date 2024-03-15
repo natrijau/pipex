@@ -6,82 +6,11 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:38:55 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/13 18:16:52 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:06:15 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-void	child_process(t_struc *list, int *pipefd, char **envp)
-{
-	if (list->fd_infile == -1)
-		return ;
-	if (list->id_fork1 == -1)
-	{
-		free_all(list);
-		close_all(list, pipefd);
-		exit(EXIT_FAILURE);
-	}
-	if (list->id_fork1 == 0)
-	{
-		close(pipefd[0]);
-		dup2(list->fd_infile, 0);
-		dup2(pipefd[1], 1);
-		close(pipefd[1]);
-		close(list->fd_outfile);
-		close(list->fd_infile);
-		execve(list->cmd1_with_path, list->cmd1_options, envp);
-		free_all(list);
-		exit(EXIT_FAILURE);
-	}
-}
-
-void	child_process2(t_struc *list, int *pipefd, char **envp)
-{
-	if (list->fd_infile == -1)
-		return ;
-	if (list->id_fork2 == -1)
-	{
-		free_all(list);
-		close_all(list, pipefd);
-		exit(EXIT_FAILURE);
-	}
-	if (list->id_fork2 == 0)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], 0);
-		dup2(list->fd_outfile, 1);
-		close(pipefd[0]);
-		close(list->fd_outfile);
-		close(list->fd_infile);
-		if (list->cmd2_with_path)
-			execve(list->cmd2_with_path, list->cmd2_options, envp);
-		free_all(list);
-		exit(EXIT_FAILURE);
-	}
-}
-
-void	init_cmd1(char **av, t_struc *list)
-{
-	int	i;
-
-	i = 0;
-	if (list->cmd1[0] != '/')
-		cmd1(list, av);
-	else
-		list->cmd1_with_path = ft_strdup(list->cmd1);
-}
-
-void	init_cmd2(char **av, t_struc *list)
-{
-	int	j;
-
-	j = 0;
-	if (list->cmd2[0] != '/')
-		cmd2(list, av);
-	else
-		list->cmd2_with_path = ft_strdup(list->cmd2);
-}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -91,12 +20,12 @@ int	main(int ac, char **av, char **envp)
 	check_ac(ac);
 	get_infile(&list, av[1]);
 	get_outfile(&list, av[4]);
+	init_cmd(&list, av);
 	check_env(envp, &list);
 	get_all_path(list.path, &list);
-	init_cmd(&list, av);
 	get_options_cmd(&list, av[2], av[3]);
-	init_cmd1(av, &list);
-	init_cmd2(av, &list);
+	cmd1(&list);
+	cmd2(&list);
 	if (pipe(pipefd) == -1)
 	{
 		ft_putstr_fd("Error with pipe! \n", 2);

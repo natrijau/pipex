@@ -1,16 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 14:49:24 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/13 17:50:34 by natrijau         ###   ########.fr       */
+/*   Created: 2024/03/14 11:04:53 by natrijau          #+#    #+#             */
+/*   Updated: 2024/03/15 16:43:02 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+/* Check numb arguments */
+void	check_ac(int ac)
+{
+	if (ac != 5)
+	{
+		ft_putstr_fd("Not enough arguments !\n", 2);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	get_infile(t_struc *list, char *str)
+{
+	int	fd;
+
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd(" : No such file or directory\n", 2);
+	}
+	list->fd_infile = fd;
+}
+
+void	get_outfile(t_struc *list, char *str)
+{
+	int	fd;
+
+	fd = open(str, O_TRUNC | O_CREAT | O_WRONLY, 0644);
+	if (fd < 0)
+	{
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd(" : Permission denied\n", 2);
+		close(list->fd_infile);
+		exit(EXIT_FAILURE);
+	}
+	list->fd_outfile = fd;
+}
 
 void	check_env(char **str, t_struc *list)
 {
@@ -29,34 +67,11 @@ void	check_env(char **str, t_struc *list)
 		}
 		i++;
 	}
-	path = (NULL);
-	(*list).path = (NULL);
-	if (!path)
+	if (!(*list).path)
 	{
 		close(list->fd_outfile);
 		close(list->fd_infile);
 		ft_printf("environment variable not found\n");
 		exit(EXIT_FAILURE);
 	}
-}
-
-void	get_all_path(char *str, t_struc *list)
-{
-	char	**tab;
-	int		i;
-	char	*s2;
-
-	i = 0;
-	tab = ft_split(str, ':');
-	while (tab[i])
-	{
-		s2 = malloc(sizeof(char) * 2);
-		s2[0] = '/';
-		s2[1] = '\0';
-		tab[i] = ft_strjoin(tab[i], s2);
-		free(s2);
-		i++;
-	}
-	free(str);
-	(*list).all_path_cmd = tab;
 }

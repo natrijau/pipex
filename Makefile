@@ -4,7 +4,7 @@ LIBFT    =  ./libft/
 PRINTF   = ./printf/
 PRINTF_A = $(PRINTF)libftprintf.a
 LIBFT_A  = $(LIBFT)libft.a
-SRCS	 = main.c check_arg.c free.c get_path.c open_files.c init_cmd_and_options.c main_utils.c
+SRCS	 = main.c parsing.c init_struct.c init_cmd.c utils.c process.c free.c 
 OBJS	 = ${SRCS:.c=.o}
 
 %.o: %.c 

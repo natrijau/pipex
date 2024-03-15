@@ -6,21 +6,28 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:20:06 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/13 18:16:56 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:44:58 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
+void	free_close_exit(t_struc *list, int *pipefd)
+{
+	free_all(list);
+	close_all(list, pipefd);
+	exit(EXIT_FAILURE);
+}
+
 void	close_all(t_struc *list, int *pipefd)
 {
-	if (pipefd[0])
+	if (pipefd[0] != -1)
 		close(pipefd[0]);
-	if (pipefd[1])
+	if (pipefd[1] != -1)
 		close(pipefd[1]);
-	if (list->fd_infile)
+	if (list->fd_infile != -1)
 		close(list->fd_infile);
-	if (list->fd_outfile)
+	if (list->fd_outfile != -1)
 		close(list->fd_outfile);
 }
 

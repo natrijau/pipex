@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:52:36 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/13 18:11:13 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:06:10 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,36 @@ typedef struct s_struct
 	struct s_stak	*next;
 }	t_struc;
 
-char	*first_word(char *str);
+/*parsing.c*/
 void	check_ac(int ac);
-void	free_all(t_struc *list);
-void	check_env(char **str, t_struc *list);
-void	get_all_path(char *str, t_struc *list);
-char	**free_split(char **s);
-void	init_cmd(t_struc *list, char **av);
-void	parent_process(t_struc *list, int pipefd[2]);
-void	error(int error_code, char *error_msg);
 void	get_infile(t_struc *list, char *str);
 void	get_outfile(t_struc *list, char *str);
-char	*get_cmd(char *str);
+void	check_env(char **str, t_struc *list);
+
+/*init_struc.c*/
+void	init_all(t_struc *list);
 void	init_cmd(t_struc *list, char **av);
-void	cmd1(t_struc *list, char **av);
-void	cmd2(t_struc *list, char **av);
+
+/*init_cmd.c*/
+void	get_all_path(char *str, t_struc *list);
+bool	check_access(t_struc *list, int id);
+void	cmd1(t_struc *list);
+void	cmd2(t_struc *list);
+
+/*process.c*/
+void	child_process(t_struc *list, int *pipefd, char **envp);
+void	child_process2(t_struc *list, int *pipefd, char **envp);
+void	parent_process(t_struc *list, int pipefd[2]);
+
+/*utils.c*/
+char	*first_word(char *str);
 void	get_options_cmd(t_struc *list, char *str1, char *str2);
+bool	ft_all_space(char *str);
+
+/*free.c*/
+void	free_close_exit(t_struc *list, int *pipefd);
 void	close_all(t_struc *list, int *pipefd);
+void	free_all(t_struc *list);
+char	**free_split(char **s);
+
 #endif
