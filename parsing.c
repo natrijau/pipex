@@ -6,7 +6,7 @@
 /*   By: natrijau <natrijau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:04:53 by natrijau          #+#    #+#             */
-/*   Updated: 2024/03/15 16:43:02 by natrijau         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:54:00 by natrijau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	check_env(char **str, t_struc *list)
 	{
 		close(list->fd_outfile);
 		close(list->fd_infile);
-		ft_printf("environment variable not found\n");
+		free_all(list);
+		ft_putstr_fd("environment variable not found\n", 2);
 		exit(EXIT_FAILURE);
 	}
 }
